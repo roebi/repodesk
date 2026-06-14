@@ -38,10 +38,7 @@ COPY --from=builder \
     /build/target/x86_64-unknown-linux-musl/release/repodesk \
     /usr/local/bin/repodesk
 
-# Verify binary is executable and statically linked
-RUN chmod +x /usr/local/bin/repodesk \
-    && /usr/local/bin/repodesk --help 2>/dev/null || true \
-    && file /usr/local/bin/repodesk
+RUN chmod +x /usr/local/bin/repodesk
 
 # Copy entrypoint
 COPY entrypoint.sh /entrypoint.sh
