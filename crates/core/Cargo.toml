@@ -1,0 +1,10 @@
+[package]
+name = "repodesk-core"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.75"
+
+[dependencies]
+repodesk-commands = { path = "../commands" }
+repodesk-editor = { path = "../editor" }
+repodesk-git = { path = "../git" }

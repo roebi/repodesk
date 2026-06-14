@@ -1,0 +1,17 @@
+[package]
+name = "repodesk-ui"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.75"
+
+[dependencies]
+repodesk-core = { path = "../core" }
+repodesk-commands = { path = "../commands" }
+repodesk-git = { path = "../git" }
+repodesk-fs = { path = "../fs" }
+repodesk-config = { path = "../config" }
+crossterm = "0.26"
+
+[[bin]]
+name = "repodesk"
+path = "src/main.rs"
