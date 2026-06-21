@@ -3,8 +3,13 @@ name = "repodesk-git"
 version = "0.1.0"
 edition = "2021"
 rust-version = "1.75"
-publish = false
-
+readme = "../../README.md"
+description = "Git CLI wrapper and backend trait for Repodesk terminal IDE"
+license = "MIT"
+repository = "https://github.com/roebi/repodesk"
+homepage = "https://github.com/roebi/repodesk"
+keywords = ["terminal", "git", "cli", "vcs", "tui"]
+categories = ["command-line-utilities", "development-tools"]
 [dev-dependencies]
 repodesk-commands = { path = "../commands" }
 repodesk-core = { path = "../core" }

@@ -146,6 +146,7 @@ dependencies = [
  "repodesk-commands",
  "repodesk-config",
  "repodesk-core",
+ "repodesk-editor",
  "repodesk-fs",
  "repodesk-git",
 ]

@@ -3,7 +3,12 @@ name = "repodesk-fs"
 version = "0.1.0"
 edition = "2021"
 rust-version = "1.75"
-publish = false
-
+readme = "../../README.md"
+description = "File system read, write, and directory listing for Repodesk terminal IDE"
+license = "MIT"
+repository = "https://github.com/roebi/repodesk"
+homepage = "https://github.com/roebi/repodesk"
+keywords = ["terminal", "filesystem", "editor", "ide", "tui"]
+categories = ["command-line-utilities", "development-tools"]
 [dependencies]
-repodesk-editor = { path = "../editor" }
+repodesk-editor = { path = "../editor", version = "0.1.0" }

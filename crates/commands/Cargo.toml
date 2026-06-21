@@ -3,7 +3,12 @@ name = "repodesk-commands"
 version = "0.1.0"
 edition = "2021"
 rust-version = "1.75"
-publish = false
-
+readme = "../../README.md"
+description = "Command enum and reducer commands for Repodesk terminal IDE"
+license = "MIT"
+repository = "https://github.com/roebi/repodesk"
+homepage = "https://github.com/roebi/repodesk"
+keywords = ["terminal", "command", "reducer", "ide", "tui"]
+categories = ["command-line-utilities", "development-tools"]
 [dependencies]
-repodesk-git = { path = "../git" }
+repodesk-git = { path = "../git", version = "0.1.0" }

@@ -12,11 +12,12 @@ keywords = ["terminal", "ide", "git", "ssh", "tui"]
 categories = ["command-line-utilities", "development-tools"]
 
 [dependencies]
-repodesk-core = { path = "../core" }
-repodesk-commands = { path = "../commands" }
-repodesk-git = { path = "../git" }
-repodesk-fs = { path = "../fs" }
-repodesk-config = { path = "../config" }
+repodesk-commands = { path = "../commands", version = "0.1.0" }
+repodesk-core     = { path = "../core",     version = "0.1.0" }
+repodesk-editor   = { path = "../editor",   version = "0.1.0" }
+repodesk-git      = { path = "../git",      version = "0.1.0" }
+repodesk-fs       = { path = "../fs",       version = "0.1.0" }
+repodesk-config   = { path = "../config",   version = "0.1.0" }
 crossterm = "0.26"
 
 [[bin]]
