@@ -10,7 +10,7 @@ repodesk-commands = { path = "../commands" }
 repodesk-git = { path = "../git" }
 repodesk-fs = { path = "../fs" }
 repodesk-config = { path = "../config" }
-crossterm = "0.26"
+crossterm = "0.29"
 
 [[bin]]
 name = "repodesk"
