@@ -1,0 +1,8 @@
+# Ignore Rust build outputs
+/target/
+
+# Ignore logs produced by podman_build.sh
+podman_build*.log
+
+# Ignore logs produced by podman_run.sh
+podman_run*.log
