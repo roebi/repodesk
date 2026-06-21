@@ -1,8 +1,15 @@
 [package]
-name = "repodesk-ui"
+name = "repodesk"
 version = "0.1.0"
 edition = "2021"
 rust-version = "1.75"
+description = "Terminal IDE for Git workflows in SSH and container environments. Rust-based."
+license = "MIT"
+repository = "https://github.com/roebi/repodesk"
+homepage = "https://github.com/roebi/repodesk"
+readme = "../../README.md"
+keywords = ["terminal", "ide", "git", "ssh", "tui"]
+categories = ["command-line-utilities", "development-tools"]
 
 [dependencies]
 repodesk-core = { path = "../core" }

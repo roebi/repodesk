@@ -3,6 +3,7 @@ name = "repodesk-git"
 version = "0.1.0"
 edition = "2021"
 rust-version = "1.75"
+publish = false
 
 [dev-dependencies]
 repodesk-commands = { path = "../commands" }

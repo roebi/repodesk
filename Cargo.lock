@@ -139,6 +139,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "repodesk"
+version = "0.1.0"
+dependencies = [
+ "crossterm",
+ "repodesk-commands",
+ "repodesk-config",
+ "repodesk-core",
+ "repodesk-fs",
+ "repodesk-git",
+]
+
+[[package]]
 name = "repodesk-commands"
 version = "0.1.0"
 dependencies = [
@@ -184,18 +196,6 @@ dependencies = [
 [[package]]
 name = "repodesk-search"
 version = "0.1.0"
-
-[[package]]
-name = "repodesk-ui"
-version = "0.1.0"
-dependencies = [
- "crossterm",
- "repodesk-commands",
- "repodesk-config",
- "repodesk-core",
- "repodesk-fs",
- "repodesk-git",
-]
 
 [[package]]
 name = "scopeguard"
