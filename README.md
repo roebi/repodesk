@@ -1,6 +1,6 @@
 # Repodesk
 
-A deterministic, Rust-based terminal IDE for Git workflows in SSH and container environments.
+Terminal IDE for Git workflows in SSH and container environments. Rust-based.
 
 ```
 +--------------------------------------------------------------------------------+
@@ -169,7 +169,7 @@ All fields are optional. Missing fields fall back to the defaults shown above.
 
 ## Screenshots
 
-See [repodesk-screenshots.md](repodesk-screenshots.md) for all four layout modes
+See [`docs/repodesk-screenshots.md`](docs/repodesk-screenshots.md) for all four layout modes
 rendered at 80x24.
 
 ---
@@ -198,6 +198,22 @@ GitHub Actions workflows in `.github/workflows/`:
 | `ci.yml`       | push / PR to main    | cargo test, release build, ShellCheck |
 | `release.yml`  | tag `v*.*.*`         | musl static binary artifact        |
 | `docker.yml`   | push / tag           | image build, push to ghcr.io, Trivy scan |
+
+---
+
+## For Contributors and Future Development
+
+See [`docs/`](docs/) for the full project context:
+
+- [`requirements.md`](docs/requirements.md) - approved requirements spec v1.0
+- [`plan.md`](docs/plan.md) - implementation plan phases 2-12, status per phase
+- [`Handover-State.md`](docs/Handover-State.md) - current development state, open items, bug history
+- [`repodesk-screenshots.md`](docs/repodesk-screenshots.md) - ASCII screenshots of all four layout modes
+
+The project was built following the
+[`orchestrate-sw-dev-en`](https://github.com/roebi/sw-dev-agent-framework/blob/main/skills/orchestrate-sw-dev-en/SKILL.md)
+agent skill. `Handover-State.md` is the resume point for the next development session.
+Current phase: **review** (implement is done, 189 tests green, container runs confirmed on Fedora Silverblue + Podman rootless).
 
 ---
 
