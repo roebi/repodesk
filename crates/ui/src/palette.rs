@@ -1,4 +1,4 @@
-use repodesk_core::{AppState, LayoutMode, PaletteResult};
+use repodesk_core::{AppState, LayoutMode};
 
 // ---------------------------------------------------------------------------
 // Palette overlay renderer
@@ -38,7 +38,7 @@ pub fn render_palette_overlay(lines: &mut Vec<String>, state: &AppState, total_w
     );
 
     // Result lines (up to 8)
-    let mut result_lines: Vec<String> = state
+    let result_lines: Vec<String> = state
         .palette_results
         .iter()
         .enumerate()
