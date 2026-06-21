@@ -174,38 +174,37 @@ results:
       cargo test + cargo build --release + ShellCheck + one live manual
       smoke test by the user (not a structured review pass).
 
-      REPORTED BUG (2026-06-14, user field test, not yet triaged or fixed):
+      REPORTED BUG (2026-06-14, user field test):
         Symptom: user can open a file (Ctrl-O), edit it (cursor movement,
         insert_char, delete_char, split_line all visibly work in the
         running container), but Ctrl-S does not persist the change to
-        disk. No error message was reported by the user - the failure
-        mode (silent no-op vs status-bar error vs crash) is not yet
-        confirmed.
-        Suspected area: Runtime::save_active() in crates/ui/src/app.rs,
-        and/or the active_path tracking that feeds it. save_active()
-        reads self.active_path and calls repodesk_fs::write_file with
-        self.app.active_editor. Candidate root causes, not yet verified:
-          (a) active_path may not be getting set correctly on Ctrl-O
-              open flow in this Phase 10 version of app.rs (palette and
-              layout wiring rewrote app.rs after Phase 6 originally
-              established this path - regression risk between Phase 6
-              and Phase 10 rewrites of app.rs is plausible).
-          (b) write_file may be receiving the wrong Buffer instance if
-              active_editor and the corresponding buffers[] entry have
-              drifted apart (this exact class of bug was caught once
-              before by TDD in the Phase 4 sub-phase - test_switch_
-              buffer_swaps_editor - but no equivalent test exists for
-              the open-then-edit-then-save path end to end).
-          (c) No integration test exists today that opens a real file
-              via Runtime::open_file, edits the in-memory buffer, calls
-              Runtime::save_active, and reads the file back from disk
-              to assert the change persisted. The fs crate's own 16
-              tests cover read_file/write_file directly and pass, so the
-              bug is suspected to be in the ui crate's Runtime glue, not
-              in repodesk-fs itself.
-        Status: not fixed. Fix and root-cause confirmation deferred to
-        next session per explicit user instruction - this entry exists
-        only to record the bug before that work starts.
+        disk.
+        Root cause confirmed (2026-06-14, discussion session):
+          The container process ran as a non-root user (repodesk, UID
+          assigned by Alpine adduser) while the mounted /workspace volume
+          was owned by the host user's UID/GID. The two did not match,
+          causing a permission denied error on write that was silently
+          swallowed or not surfaced to the status bar.
+          repodesk_fs::write_file itself is correct (16 fs tests pass).
+          Runtime::save_active() is not ruled out as a secondary issue
+          but was not the primary cause.
+        Fix applied (2026-06-14):
+          podman_run.sh: added --userns=keep-id to the podman run
+          command. This is the idiomatic Podman rootless solution - the
+          container process runs under the host user's UID/GID via
+          user namespace mapping. No Dockerfile change required. No
+          image rebuild required. Docker-specific options (--user flag)
+          were explicitly declined - user confirmed Podman-only target.
+          Decision rationale: Option A (--userns=keep-id at runtime)
+          preferred over Option B (baking UID/GID into the image at
+          build time) because Option B would make the image host-specific
+          and not shareable via ghcr.io or crates.io publication.
+        Status: fix applied to podman_run.sh. Pending verification by
+          user running ./podman_run.sh + Ctrl-O + edit + Ctrl-S in the
+          real container. Runtime::save_active() active_path tracking
+          should still be audited during the review phase to confirm
+          no secondary code-level bug exists independent of the
+          permission issue.
 
       Known candidates to bring into the review phase, surfaced during
       implementation and Phase 11 field testing (see also repodesk-plan.md
