@@ -188,17 +188,27 @@ results:
           repodesk_fs::write_file itself is correct (16 fs tests pass).
           Runtime::save_active() is not ruled out as a secondary issue
           but was not the primary cause.
-        Fix applied (2026-06-14):
+        Fix applied (2026-06-14, first attempt):
           podman_run.sh: added --userns=keep-id to the podman run
-          command. This is the idiomatic Podman rootless solution - the
-          container process runs under the host user's UID/GID via
-          user namespace mapping. No Dockerfile change required. No
-          image rebuild required. Docker-specific options (--user flag)
-          were explicitly declined - user confirmed Podman-only target.
-          Decision rationale: Option A (--userns=keep-id at runtime)
-          preferred over Option B (baking UID/GID into the image at
-          build time) because Option B would make the image host-specific
-          and not shareable via ghcr.io or crates.io publication.
+          command. This maps the host UID (1000/roebi-fedora) into the
+          container user namespace correctly.
+        Status after first fix: still failing. User confirmed same
+          permission denied error on Ctrl-S after adding --userns=keep-id.
+        Root cause refined (2026-06-14, second diagnostic):
+          Host user identity: uid=1000(roebi-fedora) gid=1000(roebi-fedora)
+          groups=1000(roebi-fedora),10(wheel),1500(roebig).
+          Test repo files owned by roebi-fedora:roebig, permissions rw-rw-r--.
+          --userns=keep-id maps UID 1000 and primary GID 1000 correctly,
+          but does NOT carry supplementary groups (roebig GID 1500) into
+          the container. Inside the container the process has no GID 1500
+          membership, so it hits the world-read (r--) permission class,
+          not the group-write (rw-) class. Read succeeds, write fails.
+        Fix applied (2026-06-14, second attempt):
+          podman_run.sh: added --group-add=keep-groups in addition to
+          --userns=keep-id. This Podman-specific flag carries all
+          supplementary groups from the host into the container user
+          namespace, including roebig (GID 1500).
+          No Dockerfile change required. No image rebuild required.
         Status: fix applied to podman_run.sh. Pending verification by
           user running ./podman_run.sh + Ctrl-O + edit + Ctrl-S in the
           real container. Runtime::save_active() active_path tracking

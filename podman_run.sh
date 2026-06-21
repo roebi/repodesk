@@ -79,6 +79,7 @@ podman run \
     --tty \
     --name "${CONTAINER_NAME}" \
     --userns=keep-id \
+    --group-add=keep-groups \
     --volume "${WORKSPACE}:/workspace${VOLUME_OPTS}" \
     "${IMAGE_NAME}:${IMAGE_TAG}"
 
